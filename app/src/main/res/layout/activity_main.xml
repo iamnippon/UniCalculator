@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+   >
 
     <HorizontalScrollView
         android:id="@+id/inputHorizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="?attr/foreground_color"
+        android:background="@drawable/empty_round_background"
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
@@ -26,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:autofillHints="false"
-            android:background="?attr/foreground_color"
+            android:background="@drawable/empty_round_background"
             android:inputType="textNoSuggestions"
             android:maxLength="10000"
             android:paddingHorizontal="10dp"
@@ -65,7 +66,7 @@
         android:id="@+id/resultDisplayHorizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="?attr/foreground_color"
+        android:background="@drawable/empty_round_background"
         android:fillViewport="true"
         android:overScrollMode="never"
         android:scrollbars="none"
@@ -80,7 +81,6 @@
 
             <TextView
                 android:id="@+id/resultDisplay"
-                style="@style/RobotoFontCondensedMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="?attr/foreground_color"
@@ -103,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="top"
+        android:background="@drawable/empty_round_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultDisplayHorizontalScrollView"
         app:umanoPanelHeight="41dp"
@@ -132,7 +133,7 @@
                     android:layout_marginBottom="1dp"
                     android:layout_weight="0">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/squareButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -143,7 +144,7 @@
                         android:text="@string/square"
                         android:textSize="26sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/piButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -164,7 +165,7 @@
                         android:onClick="exponentButton"
                         app:srcCompat="@drawable/exponent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/factorialButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -183,10 +184,10 @@
                         android:layout_margin="0dp"
                         android:layout_weight="0.6"
                         android:background="@drawable/circle"
-                        android:backgroundTint="?attr/foreground_color"
+                        android:backgroundTint="@color/transparant_white"
                         android:onClick="scientistModeSwitchButton"
                         android:textAllCaps="false"
-                        android:textColor="?attr/text_color"
+                        android:textColor="@color/white"
                         android:textSize="26sp"
                         app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
@@ -200,7 +201,7 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/degreeButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -211,7 +212,7 @@
                         android:text="@string/degree"
                         android:textSize="22sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/sineButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -221,7 +222,7 @@
                         android:onClick="sineButton"
                         android:text="@string/sine" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/cosineButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -231,7 +232,7 @@
                         android:onClick="cosineButton"
                         android:text="@string/cosine" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/tangentButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -258,7 +259,7 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/invButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -268,7 +269,7 @@
                         android:onClick="invButton"
                         android:text="@string/invert" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/eButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -278,7 +279,7 @@
                         android:onClick="eButton"
                         android:text="@string/e" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/naturalLogarithmButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -288,7 +289,7 @@
                         android:onClick="naturalLogarithmButton"
                         android:text="@string/naturalLogarithm" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/logarithmButton"
                         style="@style/CalculatorButton.Function"
                         android:layout_width="0dp"
@@ -312,70 +313,70 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/clearButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_clear_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="clearButton"
                         android:text="@string/clear"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/leftParenthesisButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/black"
                         android:onClick="leftParenthesisButton"
                         android:text="@string/leftParenthesis"
                         android:textSize="28sp"
                         android:visibility="gone" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/rightParenthesisButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/black"
                         android:onClick="rightParenthesisButton"
                         android:text="@string/rightParenthesis"
                         android:textSize="28sp"
                         android:visibility="gone" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/parenthesesButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="parenthesesButton"
                         android:text="@string/parentheses"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/divideBy100Button"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="percent"
                         android:text="@string/percent"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/divideButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="divideButton"
                         android:text="@string/divide"
                         android:textSize="32sp" />
@@ -386,7 +387,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/sevenButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -396,7 +397,7 @@
                         android:text="@string/seven"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/eightButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -406,7 +407,7 @@
                         android:text="@string/eight"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/nineButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -416,13 +417,13 @@
                         android:text="@string/nine"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/multiplyButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="multiplyButton"
                         android:text="@string/multiply"
                         android:textSize="32sp" />
@@ -433,7 +434,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/fourButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -443,7 +444,7 @@
                         android:text="@string/four"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/fiveButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -453,7 +454,7 @@
                         android:text="@string/five"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/sixButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -463,13 +464,13 @@
                         android:text="@string/six"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/subtractButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="subtractButton"
                         android:text="@string/subtract"
                         android:textSize="32sp" />
@@ -480,7 +481,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/oneButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -490,7 +491,7 @@
                         android:text="@string/one"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/twoButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -500,7 +501,7 @@
                         android:text="@string/two"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/threeButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -510,13 +511,13 @@
                         android:text="@string/three"
                         android:textSize="28sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/addButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_symbol_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="addButton"
                         android:text="@string/add"
                         android:textSize="32sp" />
@@ -527,7 +528,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/zeroButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
@@ -555,13 +556,13 @@
                         android:paddingEnd="5dp"
                         app:srcCompat="@drawable/backspace" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/equalsButton"
                         style="@style/CalculatorButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?attr/button_equals_color"
+                        android:backgroundTint="@color/transparant_blue"
                         android:onClick="equalsButton"
                         android:text="@string/equals"
                         android:textSize="32sp" />
