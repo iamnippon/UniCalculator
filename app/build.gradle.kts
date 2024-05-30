@@ -6,6 +6,7 @@ plugins {
 
 android {
     namespace = "com.zxdeveloper.myapplication"
+
     compileSdk = 34
 
     defaultConfig {
