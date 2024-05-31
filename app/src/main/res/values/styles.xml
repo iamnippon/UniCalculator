@@ -9,7 +9,6 @@
     </style>
 
     <style name="CalculatorButton" parent="Widget.Material3.Button">
-        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:background">@drawable/circle</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">@dimen/calculator_button_text_size</item>

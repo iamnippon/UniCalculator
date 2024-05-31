@@ -5,8 +5,14 @@
     <string name="factorial">!</string>
     <string name="degree">DEG</string>
     <string name="sine">sin</string>
+    <string name="sineInv" translatable="false">sin⁻¹</string>
+
     <string name="cosine">cos</string>
+    <string name="cosineInv" translatable="false">cos⁻¹</string>
+
     <string name="tangent">tan</string>
+    <string name="tangentInv" translatable="false">tan⁻¹</string>
+
     <string name="invert">INV</string>
     <string name="e">e</string>
     <string name="naturalLogarithm">In</string>
@@ -20,7 +26,7 @@
     <string name="seven">7</string>
     <string name="eight">8</string>
     <string name="nine">9</string>
-    <string name="multiply">✕</string>
+    <string name="multiply">×</string>
     <string name="four">4</string>
     <string name="five">5</string>
     <string name="six">6</string>
