@@ -5,9 +5,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-
+import com.udojava.evalex.Expression
+import java.math.BigDecimal
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         val addButton: Button = findViewById(R.id.addButton)
         addButton.setOnClickListener { operatorButton(it) }
+
+        val backspaceButton: ImageButton = findViewById(R.id.backspaceButton)
+        backspaceButton.setOnClickListener { backspaceButton() }
+
 
 
         input.addTextChangedListener(
@@ -104,17 +110,30 @@ class MainActivity : AppCompatActivity() {
         // You need to implement the calculate function
         val result = calculate(currentInput)
 
+        // If resultDisplay is not empty, clear it
+        if (resultDisplay.text.isNotEmpty()){
+            resultDisplay.text = ""
+        }
         // Display the result in resultDisplay
         resultDisplay.text = result.toString()
+
+        //Clear the input
+        input.text = ""
+
     }
 
     // This function needs to be implemented according to your requirements
     fun calculate(input: String): Double {
-        // Parse the input and perform the calculation
-        // This is a placeholder implementation and needs to be replaced
-        return 0.0
+        val expression = Expression(input)
+        expression.setPrecision(14) // Set the precision to 14 decimal places
+        return expression.eval().toDouble()
+    }// It is used to delete the last character in the input.
+    fun backspaceButton() {
+    val currentInput = input.text.toString()
+    if (currentInput.isNotEmpty()) {
+        input.text = currentInput.dropLast(1)
     }
 
-
+}
 
 }

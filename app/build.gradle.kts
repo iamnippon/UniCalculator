@@ -54,7 +54,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.slidinguppanel)
-
+    implementation("com.udojava:EvalEx:2.6")
 
 
 
