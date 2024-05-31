@@ -27,7 +27,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:autofillHints="false"
-            android:background="@drawable/empty_round_background"
             android:inputType="textNoSuggestions"
             android:maxLength="10000"
             android:paddingHorizontal="10dp"
@@ -35,7 +34,7 @@
             android:text=""
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="55sp"
+            android:textSize="35sp"
             tools:ignore="RtlCompat" />
 
     </HorizontalScrollView>
