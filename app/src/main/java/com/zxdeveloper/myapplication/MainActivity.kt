@@ -16,6 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
+import kotlin.math.E
+import kotlin.math.absoluteValue
 
 
 class MainActivity : AppCompatActivity() {
@@ -66,6 +68,10 @@ class MainActivity : AppCompatActivity() {
         val invButton: Button = findViewById(id.invButton)
         invButton.setOnClickListener { input.append("^(-1)") }
 
+        val exponentButton: ImageButton = findViewById(id.exponentButton)
+        exponentButton.setOnClickListener { input.append("^(") }
+
+
         val eButton: Button = findViewById(id.eButton)
         eButton.setOnClickListener { input.append("e") }
 
@@ -77,6 +83,20 @@ class MainActivity : AppCompatActivity() {
 
         val scientistModeSwitchButton: ImageButton = findViewById(R.id.scientistModeSwitchButton)
         scientistModeSwitchButton.setOnClickListener{ scientistModeSwitchButton(it) }
+
+        val clearButton: Button = findViewById(R.id.clearButton)
+        clearButton.setOnClickListener{ clearButton(it) }
+
+        val squareButton: Button = findViewById(R.id.squareButton)
+        squareButton.setOnClickListener{ input.append("sqrt(") }
+
+        val piButton: Button = findViewById(R.id.piButton)
+        piButton.setOnClickListener{ input.append("3.1416") }
+
+
+
+
+
 
         input.addTextChangedListener(
             object : TextWatcher {
@@ -150,18 +170,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun equalsButton(view: View) = lifecycleScope.launch {
-        val currentInput = input.text.toString()
+        var currentInput = input.text.toString()
+
+        // Count the number of open and closed parentheses
+        val openParentheses = currentInput.count { it == '(' }
+        val closedParentheses = currentInput.count { it == ')' }
+
+        // If there are more open parentheses than closed parentheses, append the necessary number of closed parentheses
+        if (openParentheses > closedParentheses) {
+            currentInput += ")".repeat(openParentheses - closedParentheses)
+        }
+
         try {
             val result = withContext(Dispatchers.Default) { calculate(currentInput) }
             withContext(Dispatchers.Main) {
                 resultDisplay.text = result.toString()
-                input.text = "" // Clear input after calculation
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 resultDisplay.text = "Error: ${e.message}" // Display error message
             }
         }
+
+        val result = calculate(currentInput)
+        val threshold = 1E10 // Set a threshold for large numbers
+        if (result.absoluteValue > threshold) {
+            var formattedResult = formatScientific(result)
+            formattedResult += ")"
+            resultDisplay.text = formattedResult
+        }
+
     }
 
     // This function needs to be implemented according to your requirements
@@ -216,6 +254,21 @@ class MainActivity : AppCompatActivity() {
         } else {
             scientistModeRow2.visibility = View.VISIBLE
             scientistModeRow3.visibility = View.VISIBLE
+        }
+    }
+
+    fun clearButton(view: View) {
+        input.text = ""
+        resultDisplay.text = ""
+
+    }
+
+    fun formatScientific(number: Double): String {
+        val numberInScientific = "%.2E".format(number) // Convert the number to scientific notation
+        return if ("E" in numberInScientific) { // Check if the number is in scientific notation
+            numberInScientific.replace("E", "x10^(") // Replace 'E' with 'x10^'
+        } else {
+            numberInScientific
         }
     }
 
