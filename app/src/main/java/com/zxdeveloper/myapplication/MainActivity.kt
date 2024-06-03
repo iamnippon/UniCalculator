@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -53,9 +54,6 @@ class MainActivity : AppCompatActivity() {
         val percentButton: Button = findViewById(id.divideBy100Button)
         percentButton.setOnClickListener { percentButton(it) }
 
-        val scientistModeSwitchButton: ImageButton = findViewById(id.scientistModeSwitchButton)
-        scientistModeSwitchButton.setOnClickListener { scientistModeSwitchButton() }
-
         val sineButton: Button = findViewById(id.sineButton)
         sineButton.setOnClickListener { input.append("sin(") }
 
@@ -77,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         val logarithmButton: Button = findViewById(id.logarithmButton)
         logarithmButton.setOnClickListener { input.append("log(") }
 
+        val scientistModeSwitchButton: ImageButton = findViewById(R.id.scientistModeSwitchButton)
+        scientistModeSwitchButton.setOnClickListener{ scientistModeSwitchButton(it) }
+
         input.addTextChangedListener(
             object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             })
+
 
     }
 
@@ -203,23 +205,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun scientistModeSwitchButton() {
-        // Get references to the scientific mode buttons
-        val degreeButton: Button = findViewById(id.degreeButton)
-        val sineButton: Button = findViewById(id.sineButton)
-        val cosineButton: Button = findViewById(id.cosineButton)
-        val tangentButton: Button = findViewById(id.tangentButton)
-        val invButton: Button = findViewById(id.invButton)
-        val eButton: Button = findViewById(id.eButton)
-        val naturalLogarithmButton: Button = findViewById(id.naturalLogarithmButton)
-        val logarithmButton: Button = findViewById(id.logarithmButton)
+   fun scientistModeSwitchButton(view: View) {
+        val scientistModeRow2 = findViewById<TableRow>(R.id.scientistModeRow2)
+        val scientistModeRow3 = findViewById<TableRow>(R.id.scientistModeRow3)
+        if (scientistModeRow2.visibility and scientistModeRow3.visibility == View.VISIBLE) {
+            scientistModeRow2.visibility = View.GONE
+            scientistModeRow3.visibility = View.GONE
+            return
 
-        // Create a list of the scientific mode buttons
-        val scientificModeButtons = listOf(degreeButton, sineButton, cosineButton, tangentButton, invButton, eButton, naturalLogarithmButton, logarithmButton)
-
-        // Toggle the visibility of each button
-        for (button in scientificModeButtons) {
-            button.visibility = if (button.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        } else {
+            scientistModeRow2.visibility = View.VISIBLE
+            scientistModeRow3.visibility = View.VISIBLE
         }
     }
 
