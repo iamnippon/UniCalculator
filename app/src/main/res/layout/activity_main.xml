@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:background="@drawable/empty_round_background"
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
@@ -329,7 +328,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/transparant_green"
+                        android:backgroundTint="@color/transparant_red"
                         android:onClick="clearButton"
                         android:text="@string/clear"
                         android:textColor="@color/white"
@@ -666,6 +665,7 @@
         android:onClick="openAppMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/black"
         app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
     <TextView
