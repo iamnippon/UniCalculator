@@ -37,4 +37,7 @@
     <string name="add">+</string>
     <string name="zero">0</string>
     <string name="equals">=</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_clear_history">Clear History</string>
+    <string name="menu_about">About</string>
 </resources>
