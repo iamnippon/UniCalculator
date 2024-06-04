@@ -5,5 +5,9 @@
     <color name="transparant_blue">#3B0000FF</color>
     <color name="transparant_white">#34FFFFFF</color>
     <color name="transparant_green">#704CAF50</color>
+    <color name="dark">#2B2D30</color>
+    <color name="dark2">#1E1F22</color>
+    <color name="dark3">#26282E</color>
+
 
 </resources>

@@ -2,8 +2,8 @@
 <resources>
     <item name="icon_scale" type="dimen" format="float">0.7</item>
     <item name="icon_translate" type="dimen" format="float">3.5</item>
-    <dimen name="button_horizontal_margin">5dp</dimen>
-    <dimen name="button_vertical_margin">7dp</dimen>
+    <dimen name="button_horizontal_margin">8dp</dimen>
+    <dimen name="button_vertical_margin">8dp</dimen>
 
     <item name="about_text" type="dimen">17sp</item>
 
