@@ -223,8 +223,8 @@ class MainActivity : AppCompatActivity() {
         val closedParentheses = currentInput.count { it == ')' }
 
 
-        // Check if the input is only an operator
-        if (currentInput in listOf("+", "-", "*", "/", "%", "^" , "sin(", "cos(", "tan(", "ln(", "log(" , "sqrt("  )) {
+        // Check if the input is only an operator or a function without a number
+        if (currentInput.matches(Regex(".*[+\\-*/%^]$|.*sin\\($|.*cos\\($|.*tan\\($|.*ln\\($|.*log\\($|.*sqrt\\($"))) {
             Toast.makeText(this@MainActivity, "Invalid input", Toast.LENGTH_SHORT).show()
             return@launch
         }
