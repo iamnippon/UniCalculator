@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.udojava.evalex.Expression
@@ -220,6 +221,13 @@ class MainActivity : AppCompatActivity() {
         // Count the number of open and closed parentheses
         val openParentheses = currentInput.count { it == '(' }
         val closedParentheses = currentInput.count { it == ')' }
+
+
+        // Check if the input is only an operator
+        if (currentInput in listOf("+", "-", "*", "/", "%", "^" , "sin(", "cos(", "tan(", "ln(", "log(" , "sqrt("  )) {
+            Toast.makeText(this@MainActivity, "Invalid input", Toast.LENGTH_SHORT).show()
+            return@launch
+        }
 
         // If there are more open parentheses than closed parentheses, append the necessary number of closed parentheses
         if (openParentheses > closedParentheses) {
