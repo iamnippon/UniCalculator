@@ -7,13 +7,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.PopupMenu
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.udojava.evalex.Expression
+import com.udojava.evalex.Expression.Operator
 import com.zxdeveloper.myapplication.R.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +21,9 @@ import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 import kotlin.math.E
 import kotlin.math.absoluteValue
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.tan
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private val resultDisplay: TextView by lazy { findViewById<TextView>(id.resultDisplay) }
     private lateinit var soundPool: SoundPool
     private var soundId: Int = 0
+    private var isDegreeMode = true
+
 
 
 
@@ -63,6 +68,18 @@ class MainActivity : AppCompatActivity() {
 
         val percentButton: Button = findViewById(id.divideBy100Button)
         percentButton.setOnClickListener { percentButton(it) }
+
+        val degreeButton: Button = findViewById(id.degreeButton)
+        degreeButton.setOnClickListener {
+            isDegreeMode = !isDegreeMode
+            if (isDegreeMode) {
+                degreeButton.text = "DEG"
+            } else {
+                degreeButton.text = "RAD"
+            }
+        }
+
+
 
         val sineButton: Button = findViewById(id.sineButton)
         sineButton.setOnClickListener {
@@ -259,6 +276,52 @@ class MainActivity : AppCompatActivity() {
     fun calculate(input: String): Double {
         val expression = Expression(input)
         expression.setPrecision(14) // Set the precision to 14 decimal places
+
+        var modifiedInput = input
+        if (isDegreeMode) {
+            modifiedInput = modifiedInput
+                .replace("sin(", "sin_deg(")
+                .replace("cos(", "cos_deg(")
+                .replace("tan(", "tan_deg(")
+        } else {
+            modifiedInput = modifiedInput
+                .replace("sin(", "sin_rad(")
+                .replace("cos(", "cos_rad(")
+                .replace("tan(", "tan_rad(")
+        }
+
+        // Extend the Expression library to handle custom degree functions
+        expression.addOperator(object : Operator("sin_deg", 1, true) {
+            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                return BigDecimal.valueOf(sin(Math.toRadians(v1.toDouble())))
+            }
+        })
+        expression.addOperator(object : Operator("cos_deg", 1, true) {
+            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                return BigDecimal.valueOf(cos(Math.toRadians(v1.toDouble())))
+            }
+        })
+        expression.addOperator(object : Operator("tan_deg", 1, true) {
+            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                return BigDecimal.valueOf(tan(Math.toRadians(v1.toDouble())))
+            }
+        })
+        expression.addOperator(object : Operator("sin_rad", 1, true) {
+            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                return BigDecimal.valueOf(sin(v1.toDouble()))
+            }
+        })
+        expression.addOperator(object : Operator("cos_rad", 1, true) {
+            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                return BigDecimal.valueOf(cos(v1.toDouble()))
+            }
+        })
+        expression.addOperator(object : Operator("tan_rad", 1, true) {
+            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                return BigDecimal.valueOf(tan(v1.toDouble()))
+            }
+        })
+
         return expression.eval().toDouble()
     }
 
@@ -335,6 +398,9 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
+
 
 
 }
