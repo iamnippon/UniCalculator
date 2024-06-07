@@ -13,13 +13,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.udojava.evalex.Expression
-import com.udojava.evalex.Expression.Operator
 import com.zxdeveloper.myapplication.R.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
-import kotlin.math.E
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.sin
@@ -43,10 +41,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
 
-
-        val divideBy100Button: Button = findViewById(id.divideBy100Button)
-        divideBy100Button.setOnClickListener { operatorButton(it)
-        }
 
         val divideButton: Button = findViewById(id.divideButton)
         divideButton.setOnClickListener { operatorButton(it) }
@@ -150,7 +144,7 @@ class MainActivity : AppCompatActivity() {
 
 
         soundPool = SoundPool.Builder().setMaxStreams(1).build()
-        soundId = soundPool.load(this, R.raw.button_click, 1)
+        soundId = soundPool.load(this, R.raw.mechanical_sound, 1)
 
 
 
@@ -291,36 +285,51 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Extend the Expression library to handle custom degree functions
-        expression.addOperator(object : Operator("sin_deg", 1, true) {
-            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
-                return BigDecimal.valueOf(sin(Math.toRadians(v1.toDouble())))
+        with(expression) {
+            if (isDegreeMode) {
+                modifiedInput = modifiedInput
+                    .replace("sin(", "sin_deg(")
+                    .replace("cos(", "cos_deg(")
+                    .replace("tan(", "tan_deg(")
+            } else {
+                modifiedInput = modifiedInput
+                    .replace("sin(", "sin_rad(")
+                    .replace("cos(", "cos_rad(")
+                    .replace("tan(", "tan_rad(")
             }
-        })
-        expression.addOperator(object : Operator("cos_deg", 1, true) {
-            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
-                return BigDecimal.valueOf(cos(Math.toRadians(v1.toDouble())))
-            }
-        })
-        expression.addOperator(object : Operator("tan_deg", 1, true) {
-            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
-                return BigDecimal.valueOf(tan(Math.toRadians(v1.toDouble())))
-            }
-        })
-        expression.addOperator(object : com.zxdeveloper.myapplication.Operator("sin_rad", 1, true) {
-            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
-                return BigDecimal.valueOf(sin(v1.toDouble()))
-            }
-        })
-        expression.addOperator(object : Operator("cos_rad", 1, true) {
-            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
-                return BigDecimal.valueOf(cos(v1.toDouble()))
-            }
-        })
-        expression.addOperator(object : Operator("tan_rad", 1, true) {
-            override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
-                return BigDecimal.valueOf(tan(v1.toDouble()))
-            }
-        })
+
+            // Extend the Expression library to handle custom degree functions
+            addOperator(object : Expression.Operator("sin_deg", 1, true) {
+                override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                    return BigDecimal.valueOf(sin(Math.toRadians(v1.toDouble())))
+                }
+            })
+            addOperator(object : Expression.Operator("cos_deg", 1, true) {
+                override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                    return BigDecimal.valueOf(cos(Math.toRadians(v1.toDouble())))
+                }
+            })
+            addOperator(object : Expression.Operator("tan_deg", 1, true) {
+                override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                    return BigDecimal.valueOf(tan(Math.toRadians(v1.toDouble())))
+                }
+            })
+            addOperator(object : Expression.Operator("sin_rad", 1, true) {
+                override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                    return BigDecimal.valueOf(sin(v1.toDouble()))
+                }
+            })
+            addOperator(object : Expression.Operator("cos_rad", 1, true) {
+                override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                    return BigDecimal.valueOf(cos(v1.toDouble()))
+                }
+            })
+            addOperator(object : Expression.Operator("tan_rad", 1, true) {
+                override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
+                    return BigDecimal.valueOf(tan(v1.toDouble()))
+                }
+            })
+        }
 
         return expression.eval().toDouble()
     }
