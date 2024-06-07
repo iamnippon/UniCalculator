@@ -306,7 +306,7 @@ class MainActivity : AppCompatActivity() {
                 return BigDecimal.valueOf(tan(Math.toRadians(v1.toDouble())))
             }
         })
-        expression.addOperator(object : Operator("sin_rad", 1, true) {
+        expression.addOperator(object : com.zxdeveloper.myapplication.Operator("sin_rad", 1, true) {
             override fun eval(v1: BigDecimal, v2: BigDecimal): BigDecimal {
                 return BigDecimal.valueOf(sin(v1.toDouble()))
             }
@@ -404,3 +404,4 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
