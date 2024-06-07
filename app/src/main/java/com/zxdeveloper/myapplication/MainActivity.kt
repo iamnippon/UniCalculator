@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
+import java.math.BigInteger
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.sin
@@ -62,6 +63,9 @@ class MainActivity : AppCompatActivity() {
 
         val percentButton: Button = findViewById(id.divideBy100Button)
         percentButton.setOnClickListener { percentButton(it) }
+
+        val factorialButton: Button = findViewById(id.factorialButton)
+        factorialButton.setOnClickListener { factorialButton(it) }
 
         val degreeButton: Button = findViewById(id.degreeButton)
         degreeButton.setOnClickListener {
@@ -167,6 +171,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun factorialButton(view: View) {
+
+        val currentInput = input.text.toString()
+        val lastChar = currentInput.lastOrNull()
+
+        // Check if the last character is a digit
+        if (currentInput.isNotEmpty() && lastChar?.isDigit() == true) {
+            input.append("!")
+        }
+        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+
+    }
 
 
     fun parenthesesButton(view: View) {
@@ -240,6 +256,7 @@ class MainActivity : AppCompatActivity() {
             return@launch
         }
 
+
         // If there are more open parentheses than closed parentheses, append the necessary number of closed parentheses
         if (openParentheses > closedParentheses) {
             currentInput += ")".repeat(openParentheses - closedParentheses)
@@ -263,6 +280,7 @@ class MainActivity : AppCompatActivity() {
             formattedResult += ")"
             resultDisplay.text = formattedResult
         }
+
 
     }
 
@@ -329,6 +347,16 @@ class MainActivity : AppCompatActivity() {
                     return BigDecimal.valueOf(tan(v1.toDouble()))
                 }
             })
+        }
+
+        val factorialPattern = "\\d+!".toRegex()
+        val matches = factorialPattern.findAll(modifiedInput)
+
+        // Replace each occurrence with the result of the factorial function
+        for (match in matches) {
+            val numberBeforeFactorial = match.value.dropLast(1).toInt()
+            val factorialResult = factorial(numberBeforeFactorial)
+            modifiedInput = modifiedInput.replace(match.value, factorialResult.toString())
         }
 
         return expression.eval().toDouble()
@@ -408,6 +436,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun factorial(n: Int): BigInteger {
+        var result = BigInteger.ONE
+        for (i in 2..n) {
+            result = result.multiply(BigInteger.valueOf(i.toLong()))
+        }
+        return result
+    }
 
 
 
