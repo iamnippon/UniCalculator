@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TableRow
 import android.widget.TextView
@@ -64,9 +65,6 @@ class MainActivity : AppCompatActivity() {
         val percentButton: Button = findViewById(id.divideBy100Button)
         percentButton.setOnClickListener { percentButton(it) }
 
-        val factorialButton: Button = findViewById(id.factorialButton)
-        factorialButton.setOnClickListener { factorialButton(it) }
-
         val degreeButton: Button = findViewById(id.degreeButton)
         degreeButton.setOnClickListener {
             isDegreeMode = !isDegreeMode
@@ -76,6 +74,9 @@ class MainActivity : AppCompatActivity() {
                 degreeButton.text = "RAD"
             }
         }
+
+        val inputEditText = findViewById<EditText>(R.id.input)
+        inputEditText.showSoftInputOnFocus = false
 
 
 
@@ -127,6 +128,11 @@ class MainActivity : AppCompatActivity() {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
             input.append("log(") }
+        val factorialButton: Button = findViewById(id.factorialButton)
+        factorialButton.setOnClickListener {
+            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+
+            input.append("!") }
 
         val scientistModeSwitchButton: ImageButton = findViewById(R.id.scientistModeSwitchButton)
         scientistModeSwitchButton.setOnClickListener{ scientistModeSwitchButton(it) }
@@ -171,18 +177,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun factorialButton(view: View) {
 
-        val currentInput = input.text.toString()
-        val lastChar = currentInput.lastOrNull()
-
-        // Check if the last character is a digit
-        if (currentInput.isNotEmpty() && lastChar?.isDigit() == true) {
-            input.append("!")
-        }
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
-    }
 
 
     fun parenthesesButton(view: View) {
@@ -193,7 +188,11 @@ class MainActivity : AppCompatActivity() {
 
     fun leftParenthesisButton(view: View) {
         // Append "(" to the input and hide the leftParenthesisButton and rightParenthesisButton
-        input.append("(")
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
+
+        inputEditText.text.insert(cursorPosition, "(")
+
         leftParenthesisButton.visibility = View.GONE
         rightParenthesisButton.visibility = View.GONE
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
@@ -202,7 +201,10 @@ class MainActivity : AppCompatActivity() {
 
     fun rightParenthesisButton(view: View) {
         // Append ")" to the input and hide the leftParenthesisButton and rightParenthesisButton
-        input.append(")")
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
+
+        inputEditText.text.insert(cursorPosition, "(")
         leftParenthesisButton.visibility = View.GONE
         rightParenthesisButton.visibility = View.GONE
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
@@ -220,6 +222,7 @@ class MainActivity : AppCompatActivity() {
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
         // Replace special characters with standard ASCII characters
+
         if (operator == "×") {
             operator = "*"
         } else if (operator == "÷") {
@@ -228,6 +231,7 @@ class MainActivity : AppCompatActivity() {
 
         if (currentInput.isNotEmpty() && currentInput.last().isDigit().not()) {
             input.text = currentInput.dropLast(1) + operator
+
         } else {
             input.append(operator)
         }
@@ -348,32 +352,30 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+        expression.addOperator(FactorialOperator())
 
-        val factorialPattern = "\\d+!".toRegex()
-        val matches = factorialPattern.findAll(modifiedInput)
 
-        // Replace each occurrence with the result of the factorial function
-        for (match in matches) {
-            val numberBeforeFactorial = match.value.dropLast(1).toInt()
-            val factorialResult = factorial(numberBeforeFactorial)
-            modifiedInput = modifiedInput.replace(match.value, factorialResult.toString())
-        }
+
 
         return expression.eval().toDouble()
     }
 
     // It is used to delete the last character in the input.
     fun backspaceButton() {
-        val currentInput = input.text.toString()
-        if (currentInput.isNotEmpty()) {
-            input.text = currentInput.dropLast(1)
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
+        if (cursorPosition > 0) {
+            val currentInput = inputEditText.text.toString()
+            val newInput = currentInput.substring(0, cursorPosition - 1) + currentInput.substring(cursorPosition)
+            inputEditText.setText(newInput)
+            inputEditText.setSelection(cursorPosition - 1)
         }
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
-
     }
 
     fun pointButton(view: View) {
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
         val currentInput = input.text.toString()
 
         if (currentInput.contains(Regex("\\.[0-9]*$"))) {
@@ -383,7 +385,7 @@ class MainActivity : AppCompatActivity() {
 
         // If the last character is not a decimal point, append a decimal point
         if (currentInput.isNotEmpty() && currentInput.last() != '.') {
-            input.append(".")
+            inputEditText.text.insert(cursorPosition, ".")
         }
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
@@ -436,16 +438,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun factorial(n: Int): BigInteger {
-        var result = BigInteger.ONE
-        for (i in 2..n) {
-            result = result.multiply(BigInteger.valueOf(i.toLong()))
-        }
-        return result
+    fun insertTextAtCursorPosition(text: String) {
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
+        inputEditText.text.insert(cursorPosition, text)
     }
 
 
 
 
 }
+
+
 
