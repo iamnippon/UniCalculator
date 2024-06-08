@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
         val inputEditText = findViewById<EditText>(R.id.input)
         val cursorPosition = inputEditText.selectionStart
 
-        inputEditText.text.insert(cursorPosition, "(")
+        inputEditText.text.insert(cursorPosition, ")")
         leftParenthesisButton.visibility = View.GONE
         rightParenthesisButton.visibility = View.GONE
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
@@ -240,11 +240,11 @@ class MainActivity : AppCompatActivity() {
 
     // controls the button clicked and display the value
     fun keyDigitPadMappingToDisplay(view: View) {
-        val button = view as Button
-        input.append(button.text)
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
-    }
+            val button = view as Button
+            val inputEditText = findViewById<EditText>(R.id.input)
+            val cursorPosition = inputEditText.selectionStart
+            inputEditText.text.insert(cursorPosition, button.text)
+            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)    }
 
     fun equalsButton(view: View) = lifecycleScope.launch {
         var currentInput = input.text.toString()
