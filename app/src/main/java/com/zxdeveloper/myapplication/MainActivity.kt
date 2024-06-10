@@ -75,8 +75,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val inputEditText = findViewById<EditText>(R.id.input)
-        inputEditText.showSoftInputOnFocus = false
+
 
 
 
@@ -174,7 +173,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             })
-
+        val inputEditText = findViewById<EditText>(R.id.input)
+        inputEditText.showSoftInputOnFocus = false
     }
 
 
