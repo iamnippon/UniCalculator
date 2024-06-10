@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // Check if the input is only an operator or a function without a number
-        if (currentInput.matches(Regex(".*[+\\-*/%^]$|.*sin\\($|.*cos\\($|.*tan\\($|.*ln\\($|.*log\\($|.*sqrt\\($"))) {
+        if (!isValidExpression(currentInput)) {
             Toast.makeText(this@MainActivity, "Invalid input", Toast.LENGTH_SHORT).show()
             return@launch
         }
@@ -441,6 +441,28 @@ class MainActivity : AppCompatActivity() {
         val inputEditText = findViewById<EditText>(R.id.input)
         val cursorPosition = inputEditText.selectionStart
         inputEditText.text.insert(cursorPosition, text)
+    }
+
+    // This function checks if the input is a valid mathematical expression
+    fun isValidExpression(input: String): Boolean {
+        // Check if the input ends with an operator
+        if (input.matches(Regex(".*[+\\-*/%^]$"))) {
+            return false
+        }
+
+        // Check if there are any operators without operands
+        if (input.contains("()")) {
+            return false
+        }
+
+        // Check if there are any unmatched parentheses
+        val openParentheses = input.count { it == '(' }
+        val closedParentheses = input.count { it == ')' }
+        if (openParentheses != closedParentheses) {
+            return false
+        }
+
+        return true
     }
 
 
