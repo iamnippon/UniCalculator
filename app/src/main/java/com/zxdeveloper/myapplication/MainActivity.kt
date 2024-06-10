@@ -216,25 +216,24 @@ class MainActivity : AppCompatActivity() {
 
         // Append the operator to the input when an operator button is clicked
         val button = view as Button
+
+
         var operator = button.text.toString()
-        val currentInput = input.text.toString()
+
+        // Get the EditText and the current cursor position
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
+
+        // Get the current input
+        val currentInput = inputEditText.text.toString()
+
+        // Check if the cursor is not at the start and the character before the cursor is a digit or a closing bracket
+        if (cursorPosition > 0 && (currentInput[cursorPosition - 1].isDigit() || currentInput[cursorPosition - 1] == ')')) {
+            // Insert the operator at the cursor position
+            inputEditText.text.insert(cursorPosition, operator)
+        }
 
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
-        // Replace special characters with standard ASCII characters
-
-        if (operator == "×") {
-            operator = "*"
-        } else if (operator == "÷") {
-            operator = "/"
-        }
-
-        if (currentInput.isNotEmpty() && currentInput.last().isDigit().not()) {
-            input.text = currentInput.dropLast(1) + operator
-
-        } else {
-            input.append(operator)
-        }
     }
 
 
