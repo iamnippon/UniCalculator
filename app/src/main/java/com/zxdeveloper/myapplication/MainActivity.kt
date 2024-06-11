@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
@@ -74,9 +75,6 @@ class MainActivity : AppCompatActivity() {
                 degreeButton.text = "RAD"
             }
         }
-
-
-
 
 
         val sineButton: Button = findViewById(id.sineButton)

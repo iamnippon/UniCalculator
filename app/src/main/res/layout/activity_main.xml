@@ -619,7 +619,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
+            <TextView
                 android:id="@+id/sliding_layout_button"
                 android:layout_width="30dp"
                 android:layout_height="4dp"
