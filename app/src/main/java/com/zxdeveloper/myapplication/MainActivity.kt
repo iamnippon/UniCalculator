@@ -227,6 +227,12 @@ class MainActivity : AppCompatActivity() {
         // Get the current input
         val currentInput = inputEditText.text.toString()
 
+        if (operator == "×") {
+            operator = "*"
+        } else if (operator == "÷") {
+            operator = "/"
+        }
+
         // Check if the cursor is not at the start and the character before the cursor is a digit or a closing bracket
         if (cursorPosition > 0 && (currentInput[cursorPosition - 1].isDigit() || currentInput[cursorPosition - 1] == ')')) {
             // Insert the operator at the cursor position
@@ -455,10 +461,19 @@ class MainActivity : AppCompatActivity() {
             return false
         }
 
+        // Check if there are any operators followed by a closing parenthesis
+        if (input.contains(Regex("[+\\-*/%^]\\)"))) {
+            return false
+        }
+
         // Check if there are any unmatched parentheses
         val openParentheses = input.count { it == '(' }
         val closedParentheses = input.count { it == ')' }
         if (openParentheses != closedParentheses) {
+            return false
+        }
+
+        if (input.contains("^(-1)^(-1)")) {
             return false
         }
 
