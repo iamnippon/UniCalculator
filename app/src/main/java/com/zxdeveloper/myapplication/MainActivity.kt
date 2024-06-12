@@ -4,10 +4,13 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
@@ -478,8 +481,22 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    fun openAppMenu(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        val inflater: MenuInflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.app_menu, popupMenu.menu)
+        popupMenu.show()
+    }
 
+    fun openSettings(item: MenuItem) {
+        // Implement your open settings logic here
+        // You might want to start a new Activity here or show a dialog
+    }
 
+    fun openAbout(item: MenuItem) {
+        // Implement your open about logic here
+        // You might want to start a new Activity here or show a dialog
+    }
 
 }
 
