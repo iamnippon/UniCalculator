@@ -1,5 +1,6 @@
 package com.zxdeveloper.myapplication
 
+import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
 import android.text.Editable
@@ -488,14 +489,14 @@ class MainActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    fun openSettings(item: MenuItem) {
-        // Implement your open settings logic here
-        // You might want to start a new Activity here or show a dialog
-    }
+//    fun openSettings(item: MenuItem) {
+//        // Implement your open settings logic here
+//        // You might want to start a new Activity here or show a dialog
+//    }
 
     fun openAbout(item: MenuItem) {
-        // Implement your open about logic here
-        // You might want to start a new Activity here or show a dialog
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
     }
 
 }
