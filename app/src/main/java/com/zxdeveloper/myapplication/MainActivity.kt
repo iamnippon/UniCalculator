@@ -1,5 +1,6 @@
 package com.zxdeveloper.myapplication
 
+
 import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
@@ -23,7 +24,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
-import java.math.BigInteger
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.sin
@@ -39,9 +39,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var soundPool: SoundPool
     private var soundId: Int = 0
     private var isDegreeMode = true
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,73 +82,84 @@ class MainActivity : AppCompatActivity() {
         sineButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("sin(") }
+            input.append("sin(")
+        }
 
         val cosineButton: Button = findViewById(id.cosineButton)
         cosineButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("cos(") }
+            input.append("cos(")
+        }
 
         val tangentButton: Button = findViewById(id.tangentButton)
         tangentButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("tan(") }
+            input.append("tan(")
+        }
 
         val invButton: Button = findViewById(id.invButton)
         invButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("^(-1)") }
+            input.append("^(-1)")
+        }
 
         val exponentButton: ImageButton = findViewById(id.exponentButton)
         exponentButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("^(") }
+            input.append("^(")
+        }
 
 
         val eButton: Button = findViewById(id.eButton)
         eButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("e") }
+            input.append("e")
+        }
 
         val naturalLogarithmButton: Button = findViewById(id.naturalLogarithmButton)
         naturalLogarithmButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("ln(") }
+            input.append("ln(")
+        }
 
         val logarithmButton: Button = findViewById(id.logarithmButton)
         logarithmButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("log(") }
+            input.append("log(")
+        }
         val factorialButton: Button = findViewById(id.factorialButton)
         factorialButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("!") }
+            input.append("!")
+        }
 
         val scientistModeSwitchButton: ImageButton = findViewById(R.id.scientistModeSwitchButton)
-        scientistModeSwitchButton.setOnClickListener{ scientistModeSwitchButton(it) }
+        scientistModeSwitchButton.setOnClickListener { scientistModeSwitchButton(it) }
 
         val clearButton: Button = findViewById(R.id.clearButton)
-        clearButton.setOnClickListener{ clearButton(it) }
+        clearButton.setOnClickListener { clearButton(it) }
 
         val squareButton: Button = findViewById(R.id.squareButton)
-        squareButton.setOnClickListener{
+        squareButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("sqrt(") }
+            input.append("sqrt(")
+        }
 
         val piButton: Button = findViewById(R.id.piButton)
-        piButton.setOnClickListener{
+        piButton.setOnClickListener {
             soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-            input.append("3.1416") }
+            input.append("3.1416")
+        }
 
 
         soundPool = SoundPool.Builder().setMaxStreams(1).build()
@@ -161,7 +169,12 @@ class MainActivity : AppCompatActivity() {
 
         input.addTextChangedListener(
             object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                     // No action needed here
                 }
 
@@ -178,8 +191,6 @@ class MainActivity : AppCompatActivity() {
         val inputEditText = findViewById<EditText>(R.id.input)
         inputEditText.showSoftInputOnFocus = false
     }
-
-
 
 
     fun parenthesesButton(view: View) {
@@ -247,11 +258,12 @@ class MainActivity : AppCompatActivity() {
 
     // controls the button clicked and display the value
     fun keyDigitPadMappingToDisplay(view: View) {
-            val button = view as Button
-            val inputEditText = findViewById<EditText>(R.id.input)
-            val cursorPosition = inputEditText.selectionStart
-            inputEditText.text.insert(cursorPosition, button.text)
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)    }
+        val button = view as Button
+        val inputEditText = findViewById<EditText>(R.id.input)
+        val cursorPosition = inputEditText.selectionStart
+        inputEditText.text.insert(cursorPosition, button.text)
+        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+    }
 
     fun equalsButton(view: View) = lifecycleScope.launch {
         var currentInput = input.text.toString()
@@ -373,7 +385,9 @@ class MainActivity : AppCompatActivity() {
         val cursorPosition = inputEditText.selectionStart
         if (cursorPosition > 0) {
             val currentInput = inputEditText.text.toString()
-            val newInput = currentInput.substring(0, cursorPosition - 1) + currentInput.substring(cursorPosition)
+            val newInput = currentInput.substring(0, cursorPosition - 1) + currentInput.substring(
+                cursorPosition
+            )
             inputEditText.setText(newInput)
             inputEditText.setSelection(cursorPosition - 1)
         }
@@ -411,7 +425,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-   fun scientistModeSwitchButton(view: View) {
+    fun scientistModeSwitchButton(view: View) {
         val scientistModeRow2 = findViewById<TableRow>(R.id.scientistModeRow2)
         val scientistModeRow3 = findViewById<TableRow>(R.id.scientistModeRow3)
         if (scientistModeRow2.visibility and scientistModeRow3.visibility == View.VISIBLE) {
@@ -423,9 +437,9 @@ class MainActivity : AppCompatActivity() {
             scientistModeRow2.visibility = View.VISIBLE
             scientistModeRow3.visibility = View.VISIBLE
         }
-       soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-   }
+    }
 
     fun clearButton(view: View) {
         input.text = ""
@@ -486,20 +500,27 @@ class MainActivity : AppCompatActivity() {
         val popupMenu = PopupMenu(this, view)
         val inflater: MenuInflater = popupMenu.menuInflater
         inflater.inflate(R.menu.app_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.app_menu_about_button -> {
+                    openAbout()
+                    true
+                }
+                else -> false
+            }
+        }
         popupMenu.show()
     }
 
-//    fun openSettings(item: MenuItem) {
-//        // Implement your open settings logic here
-//        // You might want to start a new Activity here or show a dialog
-//    }
-
-    fun openAbout(item: MenuItem) {
+    fun openAbout() {
         val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
     }
 
+
+
 }
+
 
 
 
