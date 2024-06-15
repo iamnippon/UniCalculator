@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-<!--    <item-->
-<!--        android:id="@+id/app_menu_settings_button"-->
-<!--        android:title="@string/menu_settings"-->
-<!--        android:onClick="openSettings" />-->
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <item
         android:id="@+id/app_menu_about_button"
         android:title="@string/menu_about"
-        android:onClick="openAbout" />
+        />
 </menu>
