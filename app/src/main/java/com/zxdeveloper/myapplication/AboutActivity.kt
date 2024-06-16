@@ -47,6 +47,15 @@ class AboutActivity: AppCompatActivity() {
                 Intent.ACTION_VIEW,
                 Uri.parse("https://github.com/iamnippon/UniCalculator/blob/main/LICENSE")
             )
+            startActivity(browserIntent)
+        }
+
+        binding.aboutPrivacyPolicy.setOnClickListener {
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://iamnippon.github.io/android/")
+            )
+            startActivity(browserIntent)
         }
 
 
