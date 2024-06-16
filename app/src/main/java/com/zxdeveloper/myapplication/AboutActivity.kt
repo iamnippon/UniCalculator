@@ -4,7 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.sothree.slidinguppanel.library.BuildConfig
 import com.zxdeveloper.myapplication.databinding.ActivityAboutBinding
 
 class AboutActivity: AppCompatActivity() {
@@ -58,9 +60,18 @@ class AboutActivity: AppCompatActivity() {
             startActivity(browserIntent)
         }
 
+        var clickAppVersionCount = 0
+        val appVersion = this.getString(R.string.app_version)
+        binding.aboutAppVersion.text = appVersion
+        binding.aboutAppVersion.setOnClickListener {
+            clickAppVersionCount++
+            if (clickAppVersionCount > 3) {
+                Toast.makeText(this, "Thank you for using this app!", Toast.LENGTH_SHORT).show()
+                clickAppVersionCount = 0
+            }
 
-    }
+        }
 
-}
+    }}
 
 
