@@ -50,4 +50,5 @@
     <string name="about_other_license">License GPL 3.0</string>
     <string name="about_other_privacy_policy">Privacy policy</string>
     <string name="about_made_in_france">Made with ❤ in Bangladesh\nby Nippon Chowdhury</string>
+    <string name="app_version">Version 1.0.0</string>
 </resources>
