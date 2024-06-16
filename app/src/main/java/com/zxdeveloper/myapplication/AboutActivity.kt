@@ -34,8 +34,16 @@ class AboutActivity: AppCompatActivity() {
             startActivity(browserIntent)
         }
 
+        binding.aboutDiscord.setOnClickListener {
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://x.com/Iamnippon1")
+            )
+            startActivity(browserIntent)
+
 
         }
+    }
 
 }
 
