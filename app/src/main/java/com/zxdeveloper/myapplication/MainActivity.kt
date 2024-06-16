@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -32,7 +31,29 @@ import kotlin.math.tan
 
 class MainActivity : AppCompatActivity() {
 
-    private val input: TextView by lazy { findViewById<TextView>(id.input) }
+    private val piButton: Button by lazy { findViewById<Button>(id.piButton) }
+    private val squareButton: Button by lazy { findViewById<Button>(id.squareButton) }
+    private val clearButton: Button by lazy { findViewById<Button>(id.clearButton) }
+    private val scientistModeSwitchButton: ImageButton by lazy { findViewById<ImageButton>(id.scientistModeSwitchButton) }
+    private val factorialButton: Button by lazy { findViewById<Button>(id.factorialButton) }
+    private val logarithmButton: Button by lazy { findViewById<Button>(id.logarithmButton) }
+    private val naturalLogarithmButton: Button by lazy { findViewById<Button>(id.naturalLogarithmButton) }
+    private val eButton: Button by lazy { findViewById<Button>(id.eButton) }
+    private val exponentButton: ImageButton by lazy { findViewById<ImageButton>(id.exponentButton) }
+    private val invButton: Button by lazy { findViewById<Button>(id.invButton) }
+    private val tangentButton: Button by lazy { findViewById<Button>(id.tangentButton) }
+    private val cosineButton: Button by lazy { findViewById<Button>(id.cosineButton) }
+    private val sineButton: Button by lazy { findViewById<Button>(id.sineButton) }
+    private val degreeButton: Button by lazy { findViewById<Button>(id.degreeButton) }
+    private val percentButton: Button by lazy { findViewById<Button>(id.divideBy100Button) }
+    private val pointButton: ImageButton by lazy { findViewById<ImageButton>(id.pointButton) }
+    private val backspaceButton: ImageButton by lazy { findViewById<ImageButton>(id.backspaceButton) }
+    private val subtractButton: Button by lazy { findViewById<Button>(id.subtractButton) }
+    private val addButton: Button by lazy { findViewById<Button>(id.addButton) }
+    private val multiplyButton: Button by lazy { findViewById<Button>(id.multiplyButton) }
+    private val divideButton: Button by lazy { findViewById<Button>(id.divideButton) }
+    private val input: TextView by lazy { findViewById<EditText>(id.input) }
+    private val parenthesesButton: Button by lazy { findViewById<Button>(id.parenthesesButton) }
     private val leftParenthesisButton: Button by lazy { findViewById<Button>(id.leftParenthesisButton) }
     private val rightParenthesisButton: Button by lazy { findViewById<Button>(id.rightParenthesisButton) }
     private val resultDisplay: TextView by lazy { findViewById<TextView>(id.resultDisplay) }
@@ -45,29 +66,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
 
+        soundPool = SoundPool.Builder().setMaxStreams(1).build()
+        soundId = soundPool.load(this, R.raw.keyboard_sound, 1)
 
-        val divideButton: Button = findViewById(id.divideButton)
         divideButton.setOnClickListener { operatorButton(it) }
-
-        val multiplyButton: Button = findViewById(id.multiplyButton)
         multiplyButton.setOnClickListener { operatorButton(it) }
-
-        val subtractButton: Button = findViewById(id.subtractButton)
         subtractButton.setOnClickListener { operatorButton(it) }
-
-        val addButton: Button = findViewById(id.addButton)
         addButton.setOnClickListener { operatorButton(it) }
-
-        val backspaceButton: ImageButton = findViewById(id.backspaceButton)
         backspaceButton.setOnClickListener { backspaceButton() }
-
-        val pointButton: ImageButton = findViewById(id.pointButton)
         pointButton.setOnClickListener { pointButton(it) }
-
-        val percentButton: Button = findViewById(id.divideBy100Button)
         percentButton.setOnClickListener { percentButton(it) }
+        clearButton.setOnClickListener { clearButton(it) }
+        scientistModeSwitchButton.setOnClickListener { scientistModeSwitchButton(it) }
 
-        val degreeButton: Button = findViewById(id.degreeButton)
         degreeButton.setOnClickListener {
             isDegreeMode = !isDegreeMode
             if (isDegreeMode) {
@@ -76,96 +87,50 @@ class MainActivity : AppCompatActivity() {
                 degreeButton.text = "RAD"
             }
         }
-
-
-        val sineButton: Button = findViewById(id.sineButton)
         sineButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("sin(")
         }
-
-        val cosineButton: Button = findViewById(id.cosineButton)
         cosineButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("cos(")
         }
-
-        val tangentButton: Button = findViewById(id.tangentButton)
         tangentButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("tan(")
         }
-
-        val invButton: Button = findViewById(id.invButton)
         invButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("^(-1)")
         }
-
-        val exponentButton: ImageButton = findViewById(id.exponentButton)
         exponentButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("^(")
         }
-
-
-        val eButton: Button = findViewById(id.eButton)
         eButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("e")
         }
-
-        val naturalLogarithmButton: Button = findViewById(id.naturalLogarithmButton)
         naturalLogarithmButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("ln(")
         }
-
-        val logarithmButton: Button = findViewById(id.logarithmButton)
         logarithmButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("log(")
         }
-        val factorialButton: Button = findViewById(id.factorialButton)
         factorialButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("!")
         }
-
-        val scientistModeSwitchButton: ImageButton = findViewById(R.id.scientistModeSwitchButton)
-        scientistModeSwitchButton.setOnClickListener { scientistModeSwitchButton(it) }
-
-        val clearButton: Button = findViewById(R.id.clearButton)
-        clearButton.setOnClickListener { clearButton(it) }
-
-        val squareButton: Button = findViewById(R.id.squareButton)
         squareButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("sqrt(")
         }
-
-        val piButton: Button = findViewById(R.id.piButton)
         piButton.setOnClickListener {
-            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+            playSound()
             input.append("3.1416")
         }
-
-
-        soundPool = SoundPool.Builder().setMaxStreams(1).build()
-        soundId = soundPool.load(this, R.raw.mechanical_sound, 1)
-
-
 
         input.addTextChangedListener(
             object : TextWatcher {
@@ -188,8 +153,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             })
-        val inputEditText = findViewById<EditText>(R.id.input)
-        inputEditText.showSoftInputOnFocus = false
+
+        input.showSoftInputOnFocus = false
     }
 
 
@@ -197,19 +162,19 @@ class MainActivity : AppCompatActivity() {
         // Show the leftParenthesisButton and rightParenthesisButton when parenthesesButton is clicked
         leftParenthesisButton.visibility = View.VISIBLE
         rightParenthesisButton.visibility = View.VISIBLE
+        playSound()
     }
 
     fun leftParenthesisButton(view: View) {
         // Append "(" to the input and hide the leftParenthesisButton and rightParenthesisButton
-        val inputEditText = findViewById<EditText>(R.id.input)
-        val cursorPosition = inputEditText.selectionStart
+        val input = findViewById<EditText>(R.id.input)
+        val cursorPosition = input.selectionStart
 
-        inputEditText.text.insert(cursorPosition, "(")
+        input.text.insert(cursorPosition, "(")
 
         leftParenthesisButton.visibility = View.GONE
         rightParenthesisButton.visibility = View.GONE
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+        playSound()
     }
 
     fun rightParenthesisButton(view: View) {
@@ -220,8 +185,7 @@ class MainActivity : AppCompatActivity() {
         inputEditText.text.insert(cursorPosition, ")")
         leftParenthesisButton.visibility = View.GONE
         rightParenthesisButton.visibility = View.GONE
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+        playSound()
     }
 
 
@@ -252,7 +216,7 @@ class MainActivity : AppCompatActivity() {
             inputEditText.text.insert(cursorPosition, operator)
         }
 
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+        playSound()
     }
 
 
@@ -262,7 +226,7 @@ class MainActivity : AppCompatActivity() {
         val inputEditText = findViewById<EditText>(R.id.input)
         val cursorPosition = inputEditText.selectionStart
         inputEditText.text.insert(cursorPosition, button.text)
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+        playSound()
     }
 
     fun equalsButton(view: View) = lifecycleScope.launch {
@@ -279,10 +243,16 @@ class MainActivity : AppCompatActivity() {
             return@launch
         }
 
-
         // If there are more open parentheses than closed parentheses, append the necessary number of closed parentheses
         if (openParentheses > closedParentheses) {
             currentInput += ")".repeat(openParentheses - closedParentheses)
+        }
+        if (input.text.isEmpty()) {
+            parenthesesButton.visibility = View.VISIBLE
+            leftParenthesisButton.visibility = View.GONE
+            rightParenthesisButton.visibility = View.GONE
+            return@launch
+
         }
 
         try {
@@ -295,7 +265,7 @@ class MainActivity : AppCompatActivity() {
                 resultDisplay.text = "Error: ${e.message}" // Display error message
             }
         }
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+        playSound()
         val result = calculate(currentInput)
         val threshold = 1E10 // Set a threshold for large numbers
         if (result.absoluteValue > threshold) {
@@ -391,7 +361,7 @@ class MainActivity : AppCompatActivity() {
             inputEditText.setText(newInput)
             inputEditText.setSelection(cursorPosition - 1)
         }
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+        playSound()
     }
 
     fun pointButton(view: View) {
@@ -408,9 +378,7 @@ class MainActivity : AppCompatActivity() {
         if (currentInput.isNotEmpty() && currentInput.last() != '.') {
             inputEditText.text.insert(cursorPosition, ".")
         }
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
-
+        playSound()
     }
 
     fun percentButton(view: View) {
@@ -421,8 +389,7 @@ class MainActivity : AppCompatActivity() {
         if (currentInput.isNotEmpty() && currentInput.last().isDigit()) {
             input.append("/100")
         }
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+        playSound()
     }
 
     fun scientistModeSwitchButton(view: View) {
@@ -437,8 +404,7 @@ class MainActivity : AppCompatActivity() {
             scientistModeRow2.visibility = View.VISIBLE
             scientistModeRow3.visibility = View.VISIBLE
         }
-        soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
-
+        playSound()
     }
 
     fun clearButton(view: View) {
@@ -446,7 +412,10 @@ class MainActivity : AppCompatActivity() {
         resultDisplay.text = ""
         soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
 
-
+        // Reset the visibility of the parentheses buttons
+        parenthesesButton.visibility = View.VISIBLE
+        leftParenthesisButton.visibility = View.GONE
+        rightParenthesisButton.visibility = View.GONE
     }
 
     fun formatScientific(number: Double): String {
@@ -515,6 +484,11 @@ class MainActivity : AppCompatActivity() {
     fun openAbout() {
         val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
+    }
+
+//  play sound when button is clicked
+    fun playSound() {
+    soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
     }
 
 
