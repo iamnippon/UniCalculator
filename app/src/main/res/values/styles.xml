@@ -18,5 +18,6 @@
         <!-- cancel out material3 -->
         <item name="backgroundTint">@null</item>
         <item name="android:padding">0dp</item>
+
     </style>
 </resources>
