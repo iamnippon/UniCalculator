@@ -2,6 +2,10 @@
 
 This application is a scientific calculator with a user-friendly interface designed to perform both basic and advanced mathematical operations. Below are its key features and functionalities.
 
+<p align="center">
+  <img src="IamnipponTwitter-ezgif.com-video-to-gif-converter.gif" width="350">
+</p>
+
 ## Features
 
 1. **Basic Mathematical Operations**
